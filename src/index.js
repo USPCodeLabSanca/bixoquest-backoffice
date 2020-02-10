@@ -1,12 +1,42 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
-import * as serviceWorker from './serviceWorker';
+import React from 'react'
+import ReactDOM from 'react-dom'
 
-ReactDOM.render(<App />, document.getElementById('root'));
+import { BrowserRouter } from 'react-router-dom'
+import { toast, ToastContainer } from 'react-toastify'
+import { MuiPickersUtilsProvider } from '@material-ui/pickers';
+import dateUtils from '@date-io/dayjs'
 
-// If you want your app to work offline and load faster, you can change
-// unregister() to register() below. Note this comes with some pitfalls.
-// Learn more about service workers: https://bit.ly/CRA-PWA
-serviceWorker.unregister();
+import AuthProvider, { getToken, setToken, logout } from './global-states/auth'
+import { initializeAPI } from './api/base-api'
+import ApiURL from './constants/api-url'
+import AppRoute from './services/route'
+
+import './style.css'
+import 'react-toastify/dist/ReactToastify.min.css'
+
+initializeAPI({
+  baseURL: ApiURL,
+  tokenSelector: getToken,
+  tokenDispatcher: setToken,
+  onError: toast.error,
+  timeout: 60000,
+  onBadToken: () => {
+    toast.error('Sua sessão expirou. Por favor, faça login novamente')
+    logout()
+  }
+})
+
+function App () {
+  return (
+    <MuiPickersUtilsProvider utils={dateUtils}>
+      <BrowserRouter>
+        <ToastContainer hideProgressBar />
+        <AuthProvider>
+          <AppRoute />
+        </AuthProvider>
+      </BrowserRouter>
+    </MuiPickersUtilsProvider>
+  )
+}
+
+ReactDOM.render(<App />, document.getElementById('root'))
