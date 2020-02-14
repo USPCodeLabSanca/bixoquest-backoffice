@@ -24,7 +24,7 @@ export default function AuthProvider (props) {
   localStorage.setItem('token', JSON.stringify(auth.token))
 
   return (
-    <authContext.Provider {...props} value={auth}  />
+    <authContext.Provider {...props} value={auth} />
   )
 }
 
