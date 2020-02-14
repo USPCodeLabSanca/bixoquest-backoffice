@@ -9,6 +9,7 @@ export function withAuth (Component) {
   return (props) => {
     const history = useHistory()
     const { user, token } = useAuth()
+    console.log(user, token)
 
     if (!user || !token) {
       history.replace(Routes.login)

@@ -1,10 +1,10 @@
 import React from 'react'
 import AuthProvider from './auth'
 
-export default function Provider () {
+export default function Provider ({ children }) {
   return (
-    <>
-      <AuthProvider />
-    </>
+    <AuthProvider>
+      {children}
+    </AuthProvider>
   )
 }
