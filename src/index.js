@@ -6,7 +6,8 @@ import { toast, ToastContainer } from 'react-toastify'
 import { MuiPickersUtilsProvider } from '@material-ui/pickers';
 import dateUtils from '@date-io/dayjs'
 
-import AuthProvider, { getToken, setToken, logout } from './global-states/auth'
+import Provider from './global-states'
+import { getToken, setToken, logout } from './global-states/auth'
 import { initializeAPI } from './api/base-api'
 import ApiURL from './constants/api-url'
 import AppRoute from './services/route'
@@ -31,9 +32,9 @@ function App () {
     <MuiPickersUtilsProvider utils={dateUtils}>
       <BrowserRouter>
         <ToastContainer hideProgressBar />
-        <AuthProvider>
+        <Provider>
           <AppRoute />
-        </AuthProvider>
+        </Provider>
       </BrowserRouter>
     </MuiPickersUtilsProvider>
   )
