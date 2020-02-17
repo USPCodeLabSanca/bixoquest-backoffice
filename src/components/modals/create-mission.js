@@ -5,7 +5,7 @@ import Select from '@material-ui/core/Select'
 import MenuItem from '@material-ui/core/MenuItem'
 import TextField from '@material-ui/core/TextField'
 import Button from '../button'
-import { KeyboardDatePicker } from '@material-ui/pickers'
+import { KeyboardDateTimePicker } from '@material-ui/pickers'
 
 import API from '../../api'
 
@@ -148,7 +148,7 @@ export default function CreateMissionModal ({ onRequestClose = () => {}, onSubmi
               style={style.input}
               type='number'
             />
-            <KeyboardDatePicker
+            <KeyboardDateTimePicker
               fullWidth
               label='Data de inicio'
               value={startDate}
@@ -159,7 +159,7 @@ export default function CreateMissionModal ({ onRequestClose = () => {}, onSubmi
               minDate={new Date('01/17/2020')}
               maxDate={new Date('06/24/2020')}
             />
-            <KeyboardDatePicker
+            <KeyboardDateTimePicker
               fullWidth
               label='Data de término'
               value={endDate}
