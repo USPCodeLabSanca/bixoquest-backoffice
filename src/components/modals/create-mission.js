@@ -65,7 +65,6 @@ export default function CreateMissionModal ({ onRequestClose = () => {}, onSubmi
     if (missionType === 'key') {
       const password = passwordRef.current.value.trim().toLowerCase()
       if (!password) return toast.error('Você deve fornecer uma senha')
-      if (password.length < 6) return toast.error('Você deve fornecer uma senha de no mínimo 6 dígitos')
       mission.key = password
     } else if (missionType === 'location') {
       const { lat, lng } = markerRef.current.leafletElement.getLatLng()
