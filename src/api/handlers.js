@@ -12,10 +12,7 @@ import { withCustomError } from './error-message'
 // const silentHandler = handler => withCustomError(handler, () => '_NO_ERROR_MESSAGE')
 
 const Handlers = {
-  login: () => new Promise(resolve => setTimeout(() => resolve({
-    data: { name: 'asdasd' },
-    headers: { authorization: 'TOKEN_AUTH' }
-  }), 3000)),
+  login: (key) => API.post('/backoffice/auth/login', { key }),
 
   getUser: () => API.get('/backoffice/users'),
 

@@ -15,20 +15,17 @@ const style = {
 
 function LoginPage () {
   const [isDoingLogin, setIsDoingLogin] = React.useState(false)
-  const usernameRef = React.useRef()
   const passwordRef = React.useRef()
 
   async function submit (event) {
     if (event) event.preventDefault()
-    const username = usernameRef.current.value
+    if (isDoingLogin) return
     const password = passwordRef.current.value
-    if (!username) return toast.error('Você deve fornecer um usuário')
     if (!password) return toast.error('Você deve fornecer uma senha')
-    if (password.length < 6) return toast.error('Sua senha deve ter pelo menos 6 caracteres')
 
-    setIsDoingLogin(true)
     try {
-      await login(username, password)
+      setIsDoingLogin(true)
+      await login(password)
     } catch (e) { console.error(e) } finally {
       setIsDoingLogin(false)
     }
@@ -39,12 +36,6 @@ function LoginPage () {
       <div className={style.card}>
         <h1 className={style.title}>Login</h1>
         <form style={style.form} onSubmit={submit}>
-          <TextField
-            label='Usuário'
-            fullWidth
-            inputRef={usernameRef}
-            style={style.input}
-          />
           <TextField
             label='Senha'
             fullWidth

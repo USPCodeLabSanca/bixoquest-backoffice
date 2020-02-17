@@ -2,6 +2,7 @@ import React from 'react'
 
 import MUIDataTable from 'mui-datatables'
 import dayJS from 'dayjs'
+import QRCode from 'qrcode.react'
 
 import IconButton from '@material-ui/core/IconButton'
 import AddIcon from '@material-ui/icons/Add'
@@ -67,16 +68,20 @@ function MissionsPage () {
     fetchMissions()
   }, [])
 
-  function renderQRCode () {
-    return null
+  function renderQRCode (key) {
+    console.log(key)
+    return <QRCode
+      value={key}
+      style={{ height: 250, width: 250 }}
+    />
   }
 
   function renderExpandableRow (rowData, rowMeta) {
     const mission = missions[rowMeta.dataIndex]
-    const Row = ({ name, value }) => (
+    const Row = ({ name, value, style }) => (
       <tr className='border'>
         <th>{name}</th>
-        <td>{value}</td>
+        <td><div style={style}>{value}</div></td>
       </tr>
     )
     return (
@@ -85,9 +90,11 @@ function MissionsPage () {
         <Row name='descrição' value={mission.description} />
         <Row name='latitude' value={mission.lat} />
         <Row name='longitude' value={mission.lng} />
-        <Row name='palavra-chave' value={mission.key} />
         { mission.type === 'location' && <Row name='mapa' value={<MissionMap lat={mission.lat} lng={mission.lng} />} /> }
-        { mission.type === 'qrcode' && <Row name='QRCode' value={renderQRCode(mission.qrcode)} /> }
+        { mission.type === 'qrcode' && <>
+          <Row name='QRCode' value={renderQRCode(mission.key)} />
+          <Row name='QRCode key' value={mission.key} style={{ width: 250, wordBreak: 'break-all' }}/>
+        </> }
         { mission.type === 'password' && <Row name='palavra chave' value={mission.key} /> }
       </>
     )

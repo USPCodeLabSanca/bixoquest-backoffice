@@ -62,8 +62,8 @@ export default function CreateMissionModal ({ onRequestClose = () => {}, onSubmi
       type: missionType
     }
 
-    if (missionType === 'password') {
-      const password = passwordRef.current.value
+    if (missionType === 'key') {
+      const password = passwordRef.current.value.trim().toLowerCase()
       if (!password) return toast.error('Você deve fornecer uma senha')
       if (password.length < 6) return toast.error('Você deve fornecer uma senha de no mínimo 6 dígitos')
       mission.key = password
@@ -109,7 +109,7 @@ export default function CreateMissionModal ({ onRequestClose = () => {}, onSubmi
   }
 
   function renderPassword () {
-    if (missionType !== 'password') return null
+    if (missionType !== 'key') return null
     return <TextField
       fullWidth
       label='Palavra chave'
@@ -179,7 +179,7 @@ export default function CreateMissionModal ({ onRequestClose = () => {}, onSubmi
             >
               <MenuItem value='location'>Localização</MenuItem>
               <MenuItem value='qrcode'>QrCode</MenuItem>
-              <MenuItem value='password'>Palavra chave</MenuItem>
+              <MenuItem value='key'>Palavra chave</MenuItem>
             </Select>
             {renderMap()}
             {renderPassword()}
