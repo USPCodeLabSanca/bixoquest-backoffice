@@ -166,7 +166,7 @@ export default function CreateMissionModal ({
               style={style.input}
               onChange={date => setStartDate(date)}
               variant='inline'
-              format='DD/MM/YYYY'
+              format='DD/MM/YYYY HH[h] mm[m]'
               minDate={new Date('01/17/2020')}
               maxDate={new Date('06/24/2020')}
             />
@@ -177,7 +177,7 @@ export default function CreateMissionModal ({
               style={style.input}
               onChange={date => setEndDate(date)}
               variant='inline'
-              format='DD/MM/YYYY'
+              format='DD/MM/YYYY HH[h] mm[m]'
               minDate={new Date('01/17/2020')}
               maxDate={new Date('06/24/2020')}
             />
