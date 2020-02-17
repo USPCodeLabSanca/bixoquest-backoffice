@@ -95,7 +95,7 @@ function MissionsPage () {
           <Row name='QRCode' value={renderQRCode(mission.key)} />
           <Row name='QRCode key' value={mission.key} style={{ width: 250, wordBreak: 'break-all' }}/>
         </> }
-        { mission.type === 'password' && <Row name='palavra chave' value={mission.key} /> }
+        { mission.type === 'key' && <Row name='palavra chave' value={mission.key} /> }
       </>
     )
   }
