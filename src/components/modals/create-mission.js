@@ -9,7 +9,7 @@ import { KeyboardDateTimePicker } from '@material-ui/pickers'
 
 import API from '../../api'
 
-import { Map, Marker, TileLayer } from 'react-leaflet'
+import { MapContainer, Marker, TileLayer } from 'react-leaflet'
 import { popup } from 'leaflet'
 import { toast } from 'react-toastify'
 
@@ -90,7 +90,7 @@ export default function CreateMissionModal ({ onRequestClose = () => {}, onSubmi
   function renderMap () {
     if (missionType !== 'location') return null
     return (
-      <Map
+      <MapContainer
         center={[-22.006881, -47.896722]}
         zoom={17}
         zoomSnap={0.01}
@@ -103,7 +103,7 @@ export default function CreateMissionModal ({ onRequestClose = () => {}, onSubmi
           url='https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
         />
         <Marker position={[-22.006881, -47.896722]} draggable ref={markerRef} />
-      </Map>
+      </MapContainer>
     )
   }
 

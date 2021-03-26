@@ -1,9 +1,9 @@
 import React from 'react'
-import { Map, TileLayer, Marker } from 'react-leaflet'
+import { MapContainer, TileLayer, Marker } from 'react-leaflet'
 
 export default function MissionMap ({ lat, lng }) {
   return (
-    <Map
+    <MapContainer
       center={[lat, lng ]}
       zoom={17}
       zoomSnap={0.01}
@@ -15,6 +15,6 @@ export default function MissionMap ({ lat, lng }) {
         url='https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
       />
       <Marker position={[lat, lng]} />
-    </Map>
+    </MapContainer>
   )
 }
