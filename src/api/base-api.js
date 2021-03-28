@@ -71,6 +71,13 @@ function initializeAPI (config) {
 @type { import('axios').AxiosInstance } */
 const APIProtectorProxy = new Proxy({}, {
   get (target, prop) {
+    /**
+     * This is because the CRA hot-reload feature will check every export if it's a React component.
+     * In order to check this, they will try to access a property `$$typeof` of the object to see if it's
+     * a component. Therefore, I added an exception to return null if this property is ever accessed.
+     */
+    if (prop === '$$typeof') return null;
+
     if (!globalAPI) throw new Error('Cannot access API before it\'s initialization')
     else return globalAPI[prop]
   }
