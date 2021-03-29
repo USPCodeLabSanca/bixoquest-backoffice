@@ -75,6 +75,20 @@ export async function login(email, password) {
 }
 
 /**
+ * login
+ *
+ * @param {string} name
+ * @param {string} email
+ * @param {string} course
+ * @param {string} password
+ * @param {string} key
+ */
+export async function signup(name, email, course, password, key) {
+  const {data: user, headers: {authorization: token}} = await API.signup(name, email, course, password, key);
+  setAuth({token, user});
+}
+
+/**
  * logout
  */
 export function logout() {

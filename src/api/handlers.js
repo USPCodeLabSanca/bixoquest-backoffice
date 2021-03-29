@@ -5,6 +5,8 @@ import API from './base-api';
 const Handlers = {
   login: (email, password) => API.post('/backoffice/auth/login', {email, password}),
 
+  signup: (name, email, course, password, key) => API.post('/backoffice/auth/signup', {name, email, course, password, key}),
+
   getUser: () => API.get('/backoffice/users'),
 
   getMissions: () => API.get('/backoffice/missions'),

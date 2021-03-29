@@ -18,7 +18,6 @@ const style = {
  * @return {object}
  */
 export default function withLateralMenu(Component) {
-  // eslint-disable-next-line react/display-name
   return (props) => {
     const history = useHistory();
 
