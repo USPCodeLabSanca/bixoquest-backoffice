@@ -1,49 +1,96 @@
-import React from 'react'
-import API from '../api'
+import React from 'react';
+import API from '../api';
 
-const authContext = React.createContext()
+const authContext = React.createContext();
 
 const initialState = {
   user: null,
-  token: null
-}
+  token: null,
+};
 
-let auth, setAuth
+let auth; let setAuth;
 
-export default function AuthProvider (props) {
+/**
+ * AuthProvider
+ *
+ * @param {object} props
+ *
+ * @return {object}
+ */
+export default function AuthProvider(props) {
   const state = React.useState(() => ({
     ...initialState,
     user: JSON.parse(localStorage.getItem('user')),
-    token: JSON.parse(localStorage.getItem('token'))
-  }))
+    token: JSON.parse(localStorage.getItem('token')),
+  }));
 
-  auth = state[0]
-  setAuth = state[1]
+  auth = state[0];
+  setAuth = state[1];
 
-  localStorage.setItem('user', JSON.stringify(auth.user))
-  localStorage.setItem('token', JSON.stringify(auth.token))
+  localStorage.setItem('user', JSON.stringify(auth.user));
+  localStorage.setItem('token', JSON.stringify(auth.token));
 
   return (
     <authContext.Provider {...props} value={auth} />
-  )
+  );
 }
 
-export function getToken () { return auth.token }
-
-export function useAuth () {
-  return React.useContext(authContext)
+/**
+ * getToken
+ *
+ * @return {string}
+ */
+export function getToken() {
+  return auth.token;
 }
 
-export function setToken (token) {
-  localStorage.setItem('token', token)
-  setAuth({ ...auth, token })
+/**
+ * useAuth
+ *
+ * @return {object}
+ */
+export function useAuth() {
+  return React.useContext(authContext);
 }
 
-export async function login (username, password) {
-   const { data: user, headers: { authorization: token } } = await API.login(username, password)
-   setAuth({ token, user })
+/**
+ * setToken
+ *
+ * @param {string} token
+ */
+export function setToken(token) {
+  localStorage.setItem('token', token);
+  setAuth({...auth, token});
 }
 
-export function logout () {
-  setAuth({ ...initialState })
+/**
+ * login
+ *
+ * @param {string} email
+ * @param {string} password
+ */
+export async function login(email, password) {
+  const {data: user, headers: {authorization: token}} = await API.login(email, password);
+  setAuth({token, user});
+}
+
+/**
+ * login
+ *
+ * @param {string} name
+ * @param {string} email
+ * @param {string} course
+ * @param {string} password
+ * @param {string} key
+ */
+export async function signup(name, email, course, password, key) {
+  const {data: user, headers: {authorization: token}} = await API.signup(name, email, course, password, key);
+  setAuth({token, user});
+}
+
+/**
+ * logout
+ */
+export function logout() {
+  setAuth({...initialState});
 }

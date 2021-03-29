@@ -1,18 +1,11 @@
-import API from './base-api'
-import { withCustomError } from './error-message'
+import API from './base-api';
 
 /** @template T @typedef { import('axios').AxiosResponse<T> } AxiosResponse */
 
-/** @template T @typedef { Promise<AxiosResponse<{
-  message: string,
-  success: boolean,
-  data: T
-}>> } APIResponse */
-
-// const silentHandler = handler => withCustomError(handler, () => '_NO_ERROR_MESSAGE')
-
 const Handlers = {
-  login: (key) => API.post('/backoffice/auth/login', { key }),
+  login: (email, password) => API.post('/backoffice/auth/login', {email, password}),
+
+  signup: (name, email, course, password, key) => API.post('/backoffice/auth/signup', {name, email, course, password, key}),
 
   getUser: () => API.get('/backoffice/users'),
 
@@ -22,7 +15,7 @@ const Handlers = {
 
   editMissions: (mission) => API.put('/backoffice/missions/' + mission._id, mission),
 
-  deleteMission: (missionId) => API.delete('/backoffice/missions/' + missionId)
-}
+  deleteMission: (missionId) => API.delete('/backoffice/missions/' + missionId),
+};
 
-export default Handlers
+export default Handlers;

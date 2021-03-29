@@ -1,3 +1,3 @@
-import handlers from './handlers'
+import handlers from './handlers';
 
-export default handlers
+export default handlers;

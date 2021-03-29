@@ -14,54 +14,59 @@ const defaultMessages = {
 
   // 500
   500: 'Nosso servidor quebrou! Nos perdoe! D:',
-  503: 'Parece que nosso servidor não está diposnível. Por favor, tente novamente mais tarde'
-}
+  503: 'Parece que nosso servidor não está diposnível. Por favor, tente novamente mais tarde',
+};
 
-defaultMessages.NETWORK_ERROR = defaultMessages[undefined]
+defaultMessages.NETWORK_ERROR = defaultMessages[undefined];
 
-defaultMessages.BAD_REQUEST = defaultMessages[400]
-defaultMessages.UNAUTHORIZED = defaultMessages[401]
-defaultMessages.FORBIDDEN = defaultMessages[403]
-defaultMessages.NOT_FOUND = defaultMessages[404]
+defaultMessages.BAD_REQUEST = defaultMessages[400];
+defaultMessages.UNAUTHORIZED = defaultMessages[401];
+defaultMessages.FORBIDDEN = defaultMessages[403];
+defaultMessages.NOT_FOUND = defaultMessages[404];
 
-defaultMessages.INTERNAL_SERVER_ERROR = defaultMessages[500]
-defaultMessages.SERVICE_UNAVAILABLE = defaultMessages[503]
+defaultMessages.INTERNAL_SERVER_ERROR = defaultMessages[500];
+defaultMessages.SERVICE_UNAVAILABLE = defaultMessages[503];
 
-/** @argument { number } statusCode */
-export function getDefaultMessage (response) {
+/**
+ * getDefaultMessage
+ *
+ * @param {object} response
+ *
+ * @return {string}
+ */
+export function getDefaultMessage(response) {
   if (response && response.data && response.data.message) {
-    return response.data.message
+    return response.data.message;
   } else if (response) {
-    return defaultMessages[response.status] || defaultMessages.default
+    return defaultMessages[response.status] || defaultMessages.default;
   } else {
-    return defaultMessages.undefined
+    return defaultMessages.undefined;
   }
 }
 
-/** @typedef {
-  string
-| ((response: import('axios').AxiosResponse) => void)
-| { [prop: number]: string }
-| { [props: number]: ((response: import('axios').AxiosResponse) => void) }
-} CustomError */
-
-/** @argument { import('axios').AxiosResponse | undefined } response
-@argument { CustomError } customError */
-function customErrorHandler (response, customError) {
+/**
+ * customErrorHandler
+ *
+ * @param {object} response
+ * @param {array} customError
+ *
+ * @return {object}
+ */
+function customErrorHandler(response, customError) {
   if (!customError) {
-    throw new Error('Custom error must be provided!')
+    throw new Error('Custom error must be provided!');
   } else if (customError instanceof Function) {
-    return customError(response)
+    return customError(response);
   } else if (!response) {
-    return null
+    return null;
   } else if (typeof customError === 'string') {
-    return customError
+    return customError;
   } else if (typeof customError[response.status] === 'string') {
-    return customError[response.status]
+    return customError[response.status];
   } else if (customError[response.status] instanceof Function) {
-    return customError[response.status](response)
+    return customError[response.status](response);
   } else {
-    console.error(`CustomError ${customError} was not recognized`)
+    console.error(`CustomError ${customError} was not recognized`);
   }
 }
 
@@ -79,17 +84,17 @@ response as its only argument. Will be called even on a `network error`.
 default error messages should be replaced. If it's values are strings, they will
 replace the default error message. If they are functions, they will be called
 with the `response` as it's only argument. Will not be called on a `network error`
-@returns { T }
+@return { T }
 */
-export function withCustomError (handler, customError) {
-  return async function (...handlerArgs) {
+export function withCustomError(handler, customError) {
+  return async function(...handlerArgs) {
     try {
-      const response = await handler(...handlerArgs)
-      return response
+      const response = await handler(...handlerArgs);
+      return response;
     } catch (response) {
-      const message = customErrorHandler(response, customError)
-      if (message) response.errorMessage = message
-      throw response
+      const message = customErrorHandler(response, customError);
+      if (message) response.errorMessage = message;
+      throw response;
     }
-  }
+  };
 }

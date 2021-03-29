@@ -1,12 +1,17 @@
-import React from 'react'
-import withLateralMenu from '../services/lateral-menu'
+import React from 'react';
+import withLateralMenu from '../services/lateral-menu';
 
 const style = {
   title: 'text-2xl text-center',
-  description: 'text-center'
-}
+  description: 'text-center',
+};
 
-function HomePage () {
+/**
+ * HomePage
+ *
+ * @return {object}
+ */
+function HomePage() {
   return (
     <main>
       <h1 className={style.title}>
@@ -16,7 +21,7 @@ function HomePage () {
         Selecione uma opção na NavBar
       </p>
     </main>
-  )
+  );
 }
 
-export default withLateralMenu(HomePage)
+export default withLateralMenu(HomePage);
