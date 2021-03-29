@@ -1,42 +1,54 @@
-import React from 'react'
+import React from 'react';
 
-import dayJS from 'dayjs'
+import dayJS from 'dayjs';
 
-import Modal from '@material-ui/core/Modal'
-import Button from '../button'
-import API from '../../api'
-import { toast } from 'react-toastify'
+import Modal from '@material-ui/core/Modal';
+import Button from '../button';
+import API from '../../api';
+import {toast} from 'react-toastify';
 
 const style = {
   root: 'w-full h-full flex justify-center items-center px-4 py-16',
   card: 'bg-white rounded-lg shadow-xl w-full max-h-full max-w-lg p-4',
   title: 'text-2xl text-center text-white',
-  titleStyle: { backgroundColor: 'red' },
+  titleStyle: {backgroundColor: 'red'},
   rowRoot: 'py-2',
-}
+};
 
-const Row = ({ name, value }) => <div className={style.rowRoot}>
+const Row = ({name, value}) => <div className={style.rowRoot}>
   <span>{name}: </span><span>{value}</span>
-</div>
+</div>;
 
-export default function DeleteMissionModal ({ onRequestClose, mission, onSubmit = () => {} }) {
-  const [isDeleting, setIsDeleting] = React.useState(false)
+/**
+ * DeleteMissionModal
+ *
+ * @param {object} param0
+ *
+ * @return {object}
+ */
+export default function DeleteMissionModal({onRequestClose, mission, onSubmit = () => {}}) {
+  const [isDeleting, setIsDeleting] = React.useState(false);
 
-  async function submit () {
-    setIsDeleting(true)
+  /**
+   * submit
+   */
+  async function submit() {
+    setIsDeleting(true);
     try {
-      await API.deleteMission(mission._id)
-      toast.success('Missão deletada com sucesso')
-      onSubmit(mission)
-    } catch (e) { console.error(e) } finally {
-      setIsDeleting(false)
+      await API.deleteMission(mission._id);
+      toast.success('Missão deletada com sucesso');
+      onSubmit(mission);
+    } catch (e) {
+      console.error(e);
+    } finally {
+      setIsDeleting(false);
     }
   }
 
   return (
     <Modal open onClose={onRequestClose}>
       <div className={style.root} onClick={onRequestClose}>
-        <div className={style.card} onClick={event => event.stopPropagation()}>
+        <div className={style.card} onClick={(event) => event.stopPropagation()}>
           <h1 className={style.title} style={style.titleStyle}>
             Você está deletando essa missão
           </h1>
@@ -51,5 +63,5 @@ export default function DeleteMissionModal ({ onRequestClose, mission, onSubmit 
         </div>
       </div>
     </Modal>
-  )
+  );
 }

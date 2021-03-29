@@ -1,10 +1,17 @@
-import React from 'react'
-import AuthProvider from './auth'
+import React from 'react';
+import AuthProvider from './auth';
 
-export default function Provider ({ children }) {
+/**
+ * Provider
+ *
+ * @param {object} param0
+ *
+ * @return {object}
+ */
+export default function Provider({children}) {
   return (
     <AuthProvider>
       {children}
     </AuthProvider>
-  )
+  );
 }

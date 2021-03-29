@@ -1,14 +1,21 @@
-import React from 'react'
-import { MapContainer, TileLayer, Marker } from 'react-leaflet'
+import React from 'react';
+import {MapContainer, TileLayer, Marker} from 'react-leaflet';
 
-export default function MissionMap ({ lat, lng }) {
+/**
+ * MissionMap
+ *
+ * @param {object} param0
+ *
+ * @return {object}
+ */
+export default function MissionMap({lat, lng}) {
   return (
     <MapContainer
-      center={[lat, lng ]}
+      center={[lat, lng]}
       zoom={17}
       zoomSnap={0.01}
       maxZoom={19} // Map cannot have more than 19 zoom without breaking
-      style={{ height: '300px', width: '300px' }}
+      style={{height: '300px', width: '300px'}}
     >
       <TileLayer
         attribution='&amp;copy <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
@@ -16,5 +23,5 @@ export default function MissionMap ({ lat, lng }) {
       />
       <Marker position={[lat, lng]} />
     </MapContainer>
-  )
+  );
 }
