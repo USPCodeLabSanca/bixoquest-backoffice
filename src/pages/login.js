@@ -15,18 +15,22 @@ const style = {
 
 function LoginPage () {
   const [isDoingLogin, setIsDoingLogin] = React.useState(false)
+  const emailRef = React.useRef()
   const passwordRef = React.useRef()
 
   async function submit (event) {
     if (event) event.preventDefault()
     if (isDoingLogin) return
-    const password = passwordRef.current.value
+    const email = emailRef.current.value;
+    const password = passwordRef.current.value;
     if (!password) return toast.error('Você deve fornecer uma senha')
 
     try {
       setIsDoingLogin(true)
-      await login(password)
-    } catch (e) { console.error(e) } finally {
+      await login(email, password)
+    } catch (e) {
+      console.error(e)
+    } finally {
       setIsDoingLogin(false)
     }
   }
@@ -34,8 +38,15 @@ function LoginPage () {
   return (
     <main className={style.root}>
       <div className={style.card}>
-        <h1 className={style.title}>Login</h1>
+        <h1 className={style.title}>Entrar</h1>
         <form style={style.form} onSubmit={submit}>
+          <TextField
+            label='E-mail'
+            fullWidth
+            type='email'
+            inputRef={emailRef}
+            style={style.input}
+          />
           <TextField
             label='Senha'
             fullWidth
@@ -45,12 +56,13 @@ function LoginPage () {
           />
           <Button
             variant='contained'
+            color='primary'
             fullWidth
             type='submit'
             isLoading={isDoingLogin}
             onClick={submit}
           >
-            login
+            Entrar
           </Button>
         </form>
       </div>

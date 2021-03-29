@@ -39,8 +39,8 @@ export function setToken (token) {
   setAuth({ ...auth, token })
 }
 
-export async function login (username, password) {
-   const { data: user, headers: { authorization: token } } = await API.login(username, password)
+export async function login (email, password) {
+   const { data: user, headers: { authorization: token } } = await API.login(email, password)
    setAuth({ token, user })
 }
 
