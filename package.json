@@ -1,6 +1,6 @@
 {
-  "name": "bixoquest-adm",
-  "version": "0.1.0",
+  "name": "bixoquest-backoffice",
+  "version": "1.0.0",
   "private": true,
   "dependencies": {
     "@craco/craco": "^6.1.1",
@@ -47,15 +47,15 @@
       "last 1 safari version"
     ]
   },
-  "homepage": "https://bixoquest-usp.netlify.com/files",
+  "homepage": "https://bixoquest-usp.netlify.com/",
   "devDependencies": {
     "@tailwindcss/postcss7-compat": "^2.0.4",
-    "autoprefixer": "^9.8.6",
+    "autoprefixer": "^10.2.5",
     "eslint": "^7.23.0",
     "eslint-config-google": "^0.14.0",
     "eslint-plugin-react": "^7.23.1",
     "eslint-plugin-react-hooks": "^4.2.0",
-    "postcss": "^7.0.35",
+    "postcss": "^8.2.8",
     "tailwindcss": "npm:@tailwindcss/postcss7-compat@^2.0.4"
   }
 }
