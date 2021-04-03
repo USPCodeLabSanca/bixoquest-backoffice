@@ -70,7 +70,9 @@ export function setToken(token) {
  * @param {string} password
  */
 export async function login(email, password) {
-  const {data: user, headers: {authorization: token}} = await API.login(email, password);
+  const {data: {user}, headers: {authorization: token}} = await API.login(email, password);
+  localStorage.setItem('user', JSON.stringify(user));
+  localStorage.setItem('token', JSON.stringify(token));
   setAuth({token, user});
 }
 
@@ -84,7 +86,9 @@ export async function login(email, password) {
  * @param {string} key
  */
 export async function signup(name, email, course, password, key) {
-  const {data: user, headers: {authorization: token}} = await API.signup(name, email, course, password, key);
+  const {data: {user}, headers: {authorization: token}} = await API.signup(name, email, course, password, key);
+  localStorage.setItem('user', JSON.stringify(user));
+  localStorage.setItem('token', JSON.stringify(token));
   setAuth({token, user});
 }
 
@@ -92,5 +96,7 @@ export async function signup(name, email, course, password, key) {
  * logout
  */
 export function logout() {
+  localStorage.removeItem('user');
+  localStorage.removeItem('token');
   setAuth({...initialState});
 }
