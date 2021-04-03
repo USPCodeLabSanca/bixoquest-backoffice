@@ -16,10 +16,9 @@ export function withAuth(Component) {
   return (props) => {
     const history = useHistory();
     const {user, token} = useAuth();
-    console.log(user, token);
 
     if (!user || !token) {
-      history.replace(Routes.login);
+      history.replace(Routes.login.path);
       return null;
     }
 
@@ -40,7 +39,7 @@ export function withNoAuth(Component) {
     const {user, token} = useAuth();
 
     if (user && token) {
-      history.replace(Routes.home);
+      history.replace(Routes.home.path);
       return null;
     }
 
