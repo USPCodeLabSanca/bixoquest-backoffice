@@ -71,7 +71,6 @@ function LoginPage() {
             style={style.input}
             type='submit'
             isLoading={isDoingLogin}
-            onClick={submit}
           >
             Enviar
           </Button>
