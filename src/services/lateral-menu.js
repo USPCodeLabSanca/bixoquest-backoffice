@@ -17,7 +17,9 @@ import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import PeopleIcon from '@material-ui/icons/People';
 import LocationOnIcon from '@material-ui/icons/LocationOn';
+import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 
+import {logout} from '../global-states/auth';
 import {Routes} from './route';
 
 const drawerWidth = 240;
@@ -159,9 +161,17 @@ export default function withLateralMenu(Component) {
             </IconButton>
           </div>
           <Divider />
-          <List>
+          <List className='flex flex-col h-full overflow-hidden'>
             <LateralButton label={Routes.users.name} to={Routes.users.path} icon={<PeopleIcon />} />
             <LateralButton label={Routes.missions.name} to={Routes.missions.path} icon={<LocationOnIcon/>} />
+            <div className='flex-grow'></div>
+            <ListItem button onClick={() => {
+              logout();
+              return history.replace(Routes.login.path);
+            }} key='Logout'>
+              <ListItemIcon><ExitToAppIcon/></ListItemIcon>
+              <ListItemText primary='LOGOUT' />
+            </ListItem>
           </List>
         </Drawer>
         <main className={classes.content}>
