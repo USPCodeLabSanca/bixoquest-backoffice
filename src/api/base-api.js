@@ -41,7 +41,7 @@ function initializeAPI(config) {
   // Sends a token if there's one in redux
   api.interceptors.request.use((request) => {
     const token = tokenSelector();
-    if (token) request.headers.authorization = 'bearer ' + token;
+    if (token) request.headers.authorization = token;
     return request;
   });
 
