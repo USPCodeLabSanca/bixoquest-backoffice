@@ -46,10 +46,10 @@ const columns = [
 function missionToData(mision) {
   return [
     mision.title,
-    mision.location_reference,
-    mision.number_of_packs,
-    dayJS(mision.available_at).format('DD/MM/YYYY HH[h] mm[m]'),
-    dayJS(mision.expirate_at).format('DD/MM/YYYY HH[h] mm[m]'),
+    mision.locationReference,
+    mision.numberOfPacks,
+    dayJS(mision.availableAt).format('DD/MM/YYYY HH[h] mm[m]'),
+    dayJS(mision.expirateAt).format('DD/MM/YYYY HH[h] mm[m]'),
     mision.type,
   ];
 }
@@ -72,7 +72,7 @@ function MissionsPage() {
   async function fetchMissions() {
     setIsFetchingMission(true);
     try {
-      const {data: {data: missions}} = await API.getMissions();
+      const {data: missions} = await API.getMissions();
       setMissions(missions);
     } catch (e) {
       console.error(e);

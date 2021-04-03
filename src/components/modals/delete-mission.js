@@ -55,10 +55,10 @@ export default function DeleteMissionModal({onRequestClose, mission, onSubmit = 
           <Row name='id' value={mission._id} />
           <Row name='titulo' value={mission.title} />
           <Row name='descrição' value={mission.description} />
-          <Row name='Local de referencia' value={mission.location_reference} />
-          <Row name='Número de packs' value={mission.number_of_packs} />
-          <Row name='Data de inicio' value={dayJS(mission.available_at).format('DD/MM/YYYY HH[h] mm[m]')} />
-          <Row name='Data de fim' value={dayJS(mission.expirate_at).format('DD/MM/YYYY HH[h] mm[m]')} />
+          <Row name='Local de referencia' value={mission.locationReference} />
+          <Row name='Número de packs' value={mission.numberOfPacks} />
+          <Row name='Data de inicio' value={dayJS(mission.availableAt).format('DD/MM/YYYY HH[h] mm[m]')} />
+          <Row name='Data de fim' value={dayJS(mission.expirateAt).format('DD/MM/YYYY HH[h] mm[m]')} />
           <Button isLoading={isDeleting} fullWidth onClick={submit} variant='contained'>Deletar</Button>
         </div>
       </div>

@@ -43,8 +43,8 @@ export default function CreateMissionModal({
 
   const [isEditingMission, setIsEditingMission] = React.useState(false);
   const [missionType, setMissionType] = React.useState(missionEdited.type);
-  const [startDate, setStartDate] = React.useState(missionEdited.available_at);
-  const [endDate, setEndDate] = React.useState(missionEdited.expirate_at);
+  const [startDate, setStartDate] = React.useState(missionEdited.availableAt);
+  const [endDate, setEndDate] = React.useState(missionEdited.expirateAt);
 
   /**
    * submit
@@ -74,10 +74,10 @@ export default function CreateMissionModal({
       ...missionEdited,
       title,
       description,
-      location_reference: locationReference,
-      number_of_packs: packs,
-      available_at: startDate.valueOf(),
-      expirate_at: endDate.valueOf(),
+      locationReference: locationReference,
+      numberOfPacks: packs,
+      availableAt: startDate.valueOf(),
+      expirateAt: endDate.valueOf(),
       type: missionType,
     };
 
@@ -179,14 +179,14 @@ export default function CreateMissionModal({
             />
             <TextField
               fullWidth
-              defaultValue={missionEdited.location_reference}
+              defaultValue={missionEdited.locationReference}
               label='Local de referência'
               inputRef={locationReferenceRef}
               style={style.input}
             />
             <TextField
               fullWidth
-              defaultValue={missionEdited.number_of_packs}
+              defaultValue={missionEdited.numberOfPacks}
               label='Número de pacotes de recompensa'
               inputRef={packetsRef}
               style={style.input}

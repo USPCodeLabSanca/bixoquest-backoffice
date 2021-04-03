@@ -35,9 +35,9 @@ function userToData(user) {
     user.nusp,
     user.name,
     user.course,
-    user.completed_missions.length,
-    user.available_packs,
-    user.opened_packs,
+    user.completedMissions.length,
+    user.availablePacks,
+    user.openedPacks,
     user.stickers.length,
   ];
 }
@@ -57,7 +57,7 @@ function UsersPage() {
   async function fetchUsers() {
     setIsFetchingUsers(true);
     try {
-      const {data: {data: users}} = await API.getUser();
+      const {data: users} = await API.getUser();
       setUsers(users);
     } catch (e) {
       console.error(e);
@@ -90,7 +90,7 @@ function UsersPage() {
       <>
         <Row name='_id' value={user._id} />
         <Row name='Figurinhas' value={user.stickers.join(', ')} />
-        <Row name='Missões completadas' value={user.completed_missions.join(', ')} />
+        <Row name='Missões completadas' value={user.completedMissions.join(', ')} />
       </>
     );
   }

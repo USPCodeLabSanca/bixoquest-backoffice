@@ -69,10 +69,10 @@ export default function CreateMissionModal({onRequestClose = () => {}, onSubmit 
     const mission = {
       title,
       description,
-      location_reference: locationReference,
-      number_of_packs: packs,
-      available_at: startDate.valueOf(),
-      expirate_at: endDate.valueOf(),
+      locationReference: locationReference,
+      numberOfPacks: packs,
+      availableAt: startDate.valueOf(),
+      expirateAt: endDate.valueOf(),
       type: missionType,
     };
 
