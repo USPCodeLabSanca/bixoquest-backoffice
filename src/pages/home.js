@@ -15,10 +15,10 @@ function HomePage() {
   return (
     <main>
       <h1 className={style.title}>
-        Bem vindo(a) ao sistema adminsitrador do BixoQuest!
+        Bem vinde ao sistema adminsitrador do BixoQuest!
       </h1>
       <p className={style.description}>
-        Selecione uma opção na NavBar
+        Selecione uma opção na barra lateral
       </p>
     </main>
   );
