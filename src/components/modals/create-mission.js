@@ -81,7 +81,7 @@ export default function CreateMissionModal({onRequestClose = () => {}, onSubmit 
       if (!password) return toast.error('Você deve fornecer uma senha');
       mission.key = password;
     } else if (missionType === 'location') {
-      const {lat, lng} = markerRef.current.leafletElement.getLatLng();
+      const {lat, lng} = markerRef.current.getLatLng();
       mission.lat = lat;
       mission.lng = lng;
     }
@@ -127,10 +127,9 @@ export default function CreateMissionModal({onRequestClose = () => {}, onSubmit 
         style={{height: '300px', width: '100%', margin: '0.5rem 0'}}
       >
         <TileLayer
-          attribution='&amp;copy <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
           url='https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
         />
-        <Marker position={[-22.006881, -47.896722]} draggable ref={markerRef} />
+        <Marker position={{lat: -22.006881, lng: -47.896722}} draggable ref={markerRef} />
       </MapContainer>
     );
   }
