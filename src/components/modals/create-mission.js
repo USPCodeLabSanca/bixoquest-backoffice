@@ -1,17 +1,17 @@
 import React from 'react';
 
+import {MapContainer, Marker, TileLayer} from 'react-leaflet';
+import {popup} from 'leaflet';
+import {toast} from 'react-toastify';
 import Modal from '@material-ui/core/Modal';
 import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
 import TextField from '@material-ui/core/TextField';
-import Button from '../button';
 import {KeyboardDateTimePicker} from '@material-ui/pickers';
 
 import API from '../../api';
-
-import {MapContainer, Marker, TileLayer} from 'react-leaflet';
-import {popup} from 'leaflet';
-import {toast} from 'react-toastify';
+import {defaultCoordinates} from '../../constants/coordinates';
+import Button from '../button';
 
 const style = {
   root: 'w-full h-full px-4 py-16 flex justify-center items-center',
@@ -119,7 +119,7 @@ export default function CreateMissionModal({onRequestClose = () => {}, onSubmit 
     if (missionType !== 'location') return null;
     return (
       <MapContainer
-        center={[-22.006881, -47.896722]}
+        center={[defaultCoordinates.lat, defaultCoordinates.lng]}
         zoom={17}
         zoomSnap={0.01}
         ref={openPopup}
@@ -129,7 +129,7 @@ export default function CreateMissionModal({onRequestClose = () => {}, onSubmit 
         <TileLayer
           url='https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
         />
-        <Marker position={[-22.006881, -47.896722]} draggable ref={markerRef} />
+        <Marker position={[defaultCoordinates.lat, defaultCoordinates.lng]} draggable ref={markerRef} />
       </MapContainer>
     );
   }

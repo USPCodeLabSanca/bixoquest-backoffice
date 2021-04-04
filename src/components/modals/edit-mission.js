@@ -1,17 +1,17 @@
 import React from 'react';
 
+import {MapContainer, Marker, TileLayer} from 'react-leaflet';
+import {popup} from 'leaflet';
+import {toast} from 'react-toastify';
 import Modal from '@material-ui/core/Modal';
 import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
 import TextField from '@material-ui/core/TextField';
-import Button from '../button';
-import {KeyboardDatePicker} from '@material-ui/pickers';
+import {KeyboardDateTimePicker} from '@material-ui/pickers';
 
 import API from '../../api';
-
-import {MapContainer, Marker, TileLayer} from 'react-leaflet';
-import {popup} from 'leaflet';
-import {toast} from 'react-toastify';
+import {defaultCoordinates} from '../../constants/coordinates';
+import Button from '../button';
 
 const style = {
   root: 'w-full h-full px-4 py-16 flex justify-center items-center',
@@ -125,7 +125,7 @@ export default function CreateMissionModal({
     if (missionType !== 'location') return null;
     return (
       <MapContainer
-        center={[missionEdited.lat, missionEdited.lng]}
+        center={[missionEdited.lat || defaultCoordinates.lat, missionEdited.lng || defaultCoordinates.lng]}
         zoom={17}
         zoomSnap={0.01}
         ref={openPopup}
@@ -135,7 +135,7 @@ export default function CreateMissionModal({
         <TileLayer
           url='https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
         />
-        <Marker position={[missionEdited.lat, missionEdited.lng]} draggable ref={markerRef} />
+        <Marker position={[missionEdited.lat || defaultCoordinates.lat, missionEdited.lng || defaultCoordinates.lng]} draggable ref={markerRef} />
       </MapContainer>
     );
   }
@@ -191,7 +191,7 @@ export default function CreateMissionModal({
               style={style.input}
               type='number'
             />
-            <KeyboardDatePicker
+            <KeyboardDateTimePicker
               fullWidth
               label='Data de inicio'
               value={startDate}
@@ -202,7 +202,7 @@ export default function CreateMissionModal({
               minDate={new Date('04/01/2021')}
               maxDate={new Date('06/01/2021')}
             />
-            <KeyboardDatePicker
+            <KeyboardDateTimePicker
               fullWidth
               label='Data de término'
               value={endDate}
