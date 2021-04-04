@@ -94,7 +94,7 @@ export default function CreateMissionModal({
 
     setIsEditingMission(true);
     try {
-      const {data: {data: newMission}} = await API.editMissions(mission);
+      const {data: newMission} = await API.editMissions(mission);
       toast.success('Missão editada com sucesso!');
       onSubmit(newMission);
     } catch (e) {
@@ -200,8 +200,8 @@ export default function CreateMissionModal({
               onChange={(date) => setStartDate(date)}
               variant='inline'
               format='DD/MM/YYYY HH[h] mm[m]'
-              minDate={new Date('01/17/2020')}
-              maxDate={new Date('06/24/2020')}
+              minDate={new Date('04/01/2021')}
+              maxDate={new Date('06/01/2021')}
             />
             <KeyboardDatePicker
               fullWidth
@@ -211,8 +211,8 @@ export default function CreateMissionModal({
               onChange={(date) => setEndDate(date)}
               variant='inline'
               format='DD/MM/YYYY HH[h] mm[m]'
-              minDate={new Date('01/17/2020')}
-              maxDate={new Date('06/24/2020')}
+              minDate={new Date('04/01/2021')}
+              maxDate={new Date('06/01/2021')}
             />
             <Select
               value={missionType}
@@ -220,7 +220,6 @@ export default function CreateMissionModal({
               style={style.input}
             >
               <MenuItem value='location'>Localização</MenuItem>
-              <MenuItem value='qrcode'>QrCode</MenuItem>
               <MenuItem value='password'>Palavra chave</MenuItem>
             </Select>
             {renderMap()}
@@ -228,7 +227,7 @@ export default function CreateMissionModal({
             <Button
               fullWidth
               variant='contained'
-              onClick={submit}
+              type='submit'
               style={style.button}
               isLoading={isEditingMission}
             >

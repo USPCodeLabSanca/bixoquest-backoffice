@@ -88,7 +88,7 @@ export default function CreateMissionModal({onRequestClose = () => {}, onSubmit 
 
     setIsCreatingMission(true);
     try {
-      const {data: {data: newMission}} = await API.createMissions(mission);
+      const {data: newMission} = await API.createMissions(mission);
       toast.success('Missão criada com sucesso!');
       onSubmit(newMission);
     } catch (e) {
@@ -189,8 +189,8 @@ export default function CreateMissionModal({onRequestClose = () => {}, onSubmit 
               onChange={(date) => setStartDate(date)}
               variant='inline'
               format='DD/MM/YYYY HH[h] mm[m]'
-              minDate={new Date('01/17/2020')}
-              maxDate={new Date('06/24/2020')}
+              minDate={new Date('04/01/2021')}
+              maxDate={new Date('06/01/2021')}
             />
             <KeyboardDateTimePicker
               fullWidth
@@ -200,8 +200,8 @@ export default function CreateMissionModal({onRequestClose = () => {}, onSubmit 
               onChange={(date) => setEndDate(date)}
               variant='inline'
               format='DD/MM/YYYY HH[h] mm[m]'
-              minDate={new Date('01/17/2020')}
-              maxDate={new Date('06/24/2020')}
+              minDate={new Date('04/01/2021')}
+              maxDate={new Date('06/01/2021')}
             />
             <Select
               value={missionType}
@@ -210,7 +210,6 @@ export default function CreateMissionModal({onRequestClose = () => {}, onSubmit 
               style={style.input}
             >
               <MenuItem value='location'>Localização</MenuItem>
-              <MenuItem value='qrcode'>QrCode</MenuItem>
               <MenuItem value='key'>Palavra chave</MenuItem>
             </Select>
             {renderMap()}
@@ -218,7 +217,7 @@ export default function CreateMissionModal({onRequestClose = () => {}, onSubmit 
             <Button
               fullWidth
               variant='contained'
-              onClick={submit}
+              type='submit'
               style={style.button}
               isLoading={isCreatingMission}
             >
