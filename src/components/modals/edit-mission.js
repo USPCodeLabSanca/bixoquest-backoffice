@@ -1,7 +1,6 @@
 import React from 'react';
 
 import {MapContainer, Marker, TileLayer} from 'react-leaflet';
-import {popup} from 'leaflet';
 import {toast} from 'react-toastify';
 import Modal from '@material-ui/core/Modal';
 import Select from '@material-ui/core/Select';
@@ -105,18 +104,6 @@ export default function CreateMissionModal({
   }
 
   /**
-   * openPopup
-   *
-   * @param {object} mapElem
-   *
-   * @return {void}
-   */
-  function openPopup(mapElem) {
-    if (!mapElem) return;
-    mapElem.leafletElement.openPopup(popup().setContent('Drag me').setLatLng([missionEdited.lat + 0.0004, missionEdited.lng]));
-  }
-
-  /**
    * renderMap
    *
    * @return {object}
@@ -128,7 +115,6 @@ export default function CreateMissionModal({
         center={[missionEdited.lat || defaultCoordinates.lat, missionEdited.lng || defaultCoordinates.lng]}
         zoom={17}
         zoomSnap={0.01}
-        ref={openPopup}
         maxZoom={18} // Map cannot have more than 18 zoom without breaking
         style={{height: '300px', width: '100%', margin: '0.5rem 0'}}
       >
