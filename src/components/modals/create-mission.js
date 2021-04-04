@@ -123,13 +123,13 @@ export default function CreateMissionModal({onRequestClose = () => {}, onSubmit 
         zoom={17}
         zoomSnap={0.01}
         ref={openPopup}
-        maxZoom={19} // Map cannot have more than 19 zoom without breaking
+        maxZoom={18} // Map cannot have more than 18 zoom without breaking
         style={{height: '300px', width: '100%', margin: '0.5rem 0'}}
       >
         <TileLayer
           url='https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
         />
-        <Marker position={{lat: -22.006881, lng: -47.896722}} draggable ref={markerRef} />
+        <Marker position={[-22.006881, -47.896722]} draggable ref={markerRef} />
       </MapContainer>
     );
   }

@@ -87,7 +87,7 @@ export default function CreateMissionModal({
       if (password.length < 6) return toast.error('Você deve fornecer uma senha de no mínimo 6 dígitos');
       mission.key = password;
     } else if (missionType === 'location') {
-      const {lat, lng} = markerRef.current.leafletElement.getLatLng();
+      const {lat, lng} = markerRef.current.getLatLng();
       mission.lat = lat;
       mission.lng = lng;
     }
@@ -129,11 +129,10 @@ export default function CreateMissionModal({
         zoom={17}
         zoomSnap={0.01}
         ref={openPopup}
-        maxZoom={19} // Map cannot have more than 19 zoom without breaking
+        maxZoom={18} // Map cannot have more than 18 zoom without breaking
         style={{height: '300px', width: '100%', margin: '0.5rem 0'}}
       >
         <TileLayer
-          attribution='&amp;copy <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
           url='https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
         />
         <Marker position={[missionEdited.lat, missionEdited.lng]} draggable ref={markerRef} />
