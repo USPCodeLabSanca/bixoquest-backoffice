@@ -39,7 +39,7 @@ export default function CreateMissionModal({
   const descriptionRef = React.useRef();
   const locationReferenceRef = React.useRef();
   const packetsRef = React.useRef();
-  const passwordRef = React.useRef();
+  const keyRef = React.useRef();
 
   const [isEditingMission, setIsEditingMission] = React.useState(false);
   const [missionType, setMissionType] = React.useState(missionEdited.type);
@@ -81,11 +81,11 @@ export default function CreateMissionModal({
       type: missionType,
     };
 
-    if (missionType === 'password') {
-      const password = passwordRef.current.value;
-      if (!password) return toast.error('Você deve fornecer uma senha');
-      if (password.length < 6) return toast.error('Você deve fornecer uma senha de no mínimo 6 dígitos');
-      mission.key = password;
+    if (missionType === 'key') {
+      const key = keyRef.current.value;
+      if (!key) return toast.error('Você deve fornecer uma chave');
+      if (key.length < 6) return toast.error('Você deve fornecer uma chave de no mínimo 6 dígitos');
+      mission.key = key;
     } else if (missionType === 'location') {
       const {lat, lng} = markerRef.current.getLatLng();
       mission.lat = lat;
@@ -141,17 +141,17 @@ export default function CreateMissionModal({
   }
 
   /**
-   * renderPassword
+   * renderKey
    *
    * @return {object}
    */
-  function renderPassword() {
-    if (missionType !== 'password') return null;
+  function renderKey() {
+    if (missionType !== 'key') return null;
     return <TextField
       fullWidth
       defaultValue={missionEdited.key}
-      label='Palavra chave'
-      inputRef={passwordRef}
+      label='Chave'
+      inputRef={keyRef}
       style={style.input}
     />;
   }
@@ -219,10 +219,10 @@ export default function CreateMissionModal({
               style={style.input}
             >
               <MenuItem value='location'>Localização</MenuItem>
-              <MenuItem value='password'>Palavra chave</MenuItem>
+              <MenuItem value='key'>Chave</MenuItem>
             </Select>
             {renderMap()}
-            {renderPassword()}
+            {renderKey()}
             <Button
               fullWidth
               variant='contained'

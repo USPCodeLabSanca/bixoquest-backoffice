@@ -35,7 +35,7 @@ export default function CreateMissionModal({onRequestClose = () => {}, onSubmit 
   const descriptionRef = React.useRef();
   const locationReferenceRef = React.useRef();
   const packetsRef = React.useRef();
-  const passwordRef = React.useRef();
+  const keyRef = React.useRef();
 
   const [isCreatingMission, setIsCreatingMission] = React.useState(false);
   const [missionType, setMissionType] = React.useState('');
@@ -77,9 +77,9 @@ export default function CreateMissionModal({onRequestClose = () => {}, onSubmit 
     };
 
     if (missionType === 'key') {
-      const password = passwordRef.current.value.trim().toLowerCase();
-      if (!password) return toast.error('Você deve fornecer uma senha');
-      mission.key = password;
+      const key = keyRef.current.value.trim().toLowerCase();
+      if (!key) return toast.error('Você deve fornecer uma chave');
+      mission.key = key;
     } else if (missionType === 'location') {
       const {lat, lng} = markerRef.current.getLatLng();
       mission.lat = lat;
@@ -135,16 +135,16 @@ export default function CreateMissionModal({onRequestClose = () => {}, onSubmit 
   }
 
   /**
-   * renderPassword
+   * renderKey
    *
    * @return {object}
    */
-  function renderPassword() {
+  function renderKey() {
     if (missionType !== 'key') return null;
     return <TextField
       fullWidth
-      label='Palavra chave'
-      inputRef={passwordRef}
+      label='Chave'
+      inputRef={keyRef}
       style={style.input}
     />;
   }
@@ -209,10 +209,10 @@ export default function CreateMissionModal({onRequestClose = () => {}, onSubmit 
               style={style.input}
             >
               <MenuItem value='location'>Localização</MenuItem>
-              <MenuItem value='key'>Palavra chave</MenuItem>
+              <MenuItem value='key'>Chave</MenuItem>
             </Select>
             {renderMap()}
-            {renderPassword()}
+            {renderKey()}
             <Button
               fullWidth
               variant='contained'
