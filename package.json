@@ -49,13 +49,13 @@
   },
   "homepage": "https://bixoquest-usp.netlify.com/",
   "devDependencies": {
-    "@tailwindcss/postcss7-compat": "^2.0.4",
-    "autoprefixer": "^10.2.5",
+    "@tailwindcss/postcss7-compat": "^2.1.0",
+    "autoprefixer": "^9.8.6",
     "eslint": "^7.23.0",
     "eslint-config-google": "^0.14.0",
     "eslint-plugin-react": "^7.23.1",
     "eslint-plugin-react-hooks": "^4.2.0",
-    "postcss": "^8.2.8",
-    "tailwindcss": "npm:@tailwindcss/postcss7-compat@^2.0.4"
+    "postcss": "^7.0.35",
+    "tailwindcss": "npm:@tailwindcss/postcss7-compat@^2.1.0"
   }
 }
