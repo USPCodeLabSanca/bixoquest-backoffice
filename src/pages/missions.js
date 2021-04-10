@@ -4,16 +4,16 @@ import MUIDataTable from 'mui-datatables';
 import dayJS from 'dayjs';
 import QRCode from 'qrcode.react';
 
+import CircularProgress from '@material-ui/core/CircularProgress';
+import Backdrop from '@material-ui/core/Backdrop';
 import IconButton from '@material-ui/core/IconButton';
 import AddIcon from '@material-ui/icons/Add';
-
 import DeleteIcon from '@material-ui/icons/Delete';
 import EditIcon from '@material-ui/icons/Edit';
 
 import withLateralMenu from '../services/lateral-menu';
 import API from '../api';
 
-import Spinner from '../components/Spinner';
 import MissionMap from '../components/mission-map';
 import CreateMissionModal from '../components/modals/create-mission';
 import EditMissionModal from '../components/modals/edit-mission';
@@ -60,7 +60,7 @@ function missionToData(mision) {
  * @return {object}
  */
 function MissionsPage() {
-  const [isFetchingMission, setIsFetchingMission] = React.useState(true);
+  const [isFetchingMissions, setIsFetchingMissions] = React.useState(true);
   const [showingCreateMissionModal, setShowingCreateMissionModal] = React.useState(false);
   const [showingEditMissionModal, setShowingEditMissionModal] = React.useState(null);
   const [showingDeleteMissionModal, setShowingDeleteMissionModal] = React.useState(null);
@@ -70,14 +70,14 @@ function MissionsPage() {
    * fetchMissions
    */
   async function fetchMissions() {
-    setIsFetchingMission(true);
+    setIsFetchingMissions(true);
     try {
       const {data: missions} = await API.getMissions();
       setMissions(missions);
     } catch (e) {
       console.error(e);
     } finally {
-      setIsFetchingMission(false);
+      setIsFetchingMissions(false);
     }
   }
 
@@ -189,27 +189,31 @@ function MissionsPage() {
    * @return {object}
    */
   function renderTable() {
-    if (isFetchingMission) return <Spinner type='loading' />;
-    if (!missions) return <p>Houve um erro carregando as missões</p>;
-    return (
-      <MUIDataTable
-        title='Missões'
-        options={{
-          filterType: 'multiselect',
-          pagination: false,
-          print: false,
-          downloadOptions: {filename: 'BixoQuest-missions.csv'},
-          selectableRows: 'single',
-          expandableRowsOnClick: true,
-          expandableRows: true,
-          renderExpandableRow: renderExpandableRow,
-          customToolbar: renderToolbar,
-          customToolbarSelect: renderToolbarSelect,
-        }}
-        columns={columns}
-        data={missions.map(missionToData)}
-      />
-    );
+    return (<>
+      { !isFetchingMissions && (
+        <MUIDataTable
+          title='Missões'
+          options={{
+            filterType: 'multiselect',
+            pagination: false,
+            print: false,
+            downloadOptions: {filename: 'BixoQuest-missions.csv'},
+            selectableRows: 'single',
+            expandableRowsOnClick: true,
+            expandableRows: true,
+            renderExpandableRow: renderExpandableRow,
+            customToolbar: renderToolbar,
+            customToolbarSelect: renderToolbarSelect,
+          }}
+          columns={columns}
+          data={missions.map(missionToData)}
+        />
+      )}
+      { !isFetchingMissions && !missions && <p>Houve um erro carregando as missões</p>}
+      <Backdrop style={{zIndex: 50}} open={isFetchingMissions}>
+        <CircularProgress size={50} style={{color: 'white'}} />
+      </Backdrop>
+    </>);
   }
 
   /**
