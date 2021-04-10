@@ -1,10 +1,11 @@
 import React from 'react';
 
 import MUIDataTable from 'mui-datatables';
+import CircularProgress from '@material-ui/core/CircularProgress';
+import Backdrop from '@material-ui/core/Backdrop';
 
 import withLateralMenu from '../services/lateral-menu';
 import API from '../api';
-import Spinner from '../components/Spinner';
 
 const style = {
   root: 'w-full',
@@ -16,7 +17,8 @@ const style = {
 const columns = [
   {name: 'Nusp', options: {filter: false}},
   {name: 'Nome', options: {filter: false}},
-  {name: 'Curso', options: {sort: false}},
+  {name: 'Administrador?'},
+  {name: 'Curso'},
   {name: 'Quantidade Mssões completadas', options: {filter: false}},
   {name: 'Packs disponíveis', options: {filter: false}},
   {name: 'Packs abertos', options: {filter: false}},
@@ -34,6 +36,7 @@ function userToData(user) {
   return [
     user.nusp,
     user.name,
+    user.isAdmin ? 'Sim' : 'Não',
     user.course,
     user.completedMissions.length,
     user.availablePacks,
@@ -81,8 +84,8 @@ function UsersPage() {
   function renderExpandableRow(rowData, rowMeta) {
     const user = users[rowMeta.dataIndex];
     const Row = ({name, value}) => (
-      <tr className='border'>
-        <th>{name}</th>
+      <tr className='block w-full p-4'>
+        <th>{name}: </th>
         <td>{value}</td>
       </tr>
     );
@@ -101,25 +104,29 @@ function UsersPage() {
    * @return {object}
    */
   function renderTable() {
-    if (isFetchingUsers) return <Spinner type='loading' />;
-    if (!users) return <p>Houve um erro buscando os usuários</p>;
-    return (
-      <MUIDataTable
-        title='Usuários'
-        options={{
-          filterType: 'multiselect',
-          pagination: false,
-          print: false,
-          expandableRowsOnClick: true,
-          expandableRows: true,
-          renderExpandableRow: renderExpandableRow,
-          downloadOptions: {filename: 'BixoQuest-users.csv'},
-          selectableRows: 'none',
-        }}
-        columns={columns}
-        data={users.map(userToData)}
-      />
-    );
+    return (<>
+      { !isFetchingUsers && (
+        <MUIDataTable
+          title='Usuários'
+          options={{
+            filterType: 'dropdown',
+            pagination: false,
+            print: false,
+            expandableRowsOnClick: true,
+            expandableRows: true,
+            renderExpandableRow: renderExpandableRow,
+            downloadOptions: {filename: 'BixoQuest-users.csv'},
+            selectableRows: 'none',
+          }}
+          columns={columns}
+          data={users.map(userToData)}
+        />
+      )}
+      { !isFetchingUsers && !users && <p>Houve um erro buscando os usuários</p>}
+      <Backdrop style={{zIndex: 50}} open={isFetchingUsers}>
+        <CircularProgress size={50} style={{color: 'white'}} />
+      </Backdrop>
+    </>);
   }
 
   return (
