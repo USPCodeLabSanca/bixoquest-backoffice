@@ -83,7 +83,7 @@ export default function CreateMissionModal({
     if (missionType === 'key') {
       const key = keyRef.current.value;
       if (!key) return toast.error('Você deve fornecer uma chave');
-      if (key.length < 6) return toast.error('Você deve fornecer uma chave de no mínimo 6 dígitos');
+      if (key.length < 4) return toast.error('Você deve fornecer uma chave de no mínimo 4 dígitos');
       mission.key = key;
     } else if (missionType === 'location') {
       const {lat, lng} = markerRef.current.getLatLng();
