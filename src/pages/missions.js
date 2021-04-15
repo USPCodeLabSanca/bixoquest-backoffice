@@ -34,6 +34,7 @@ const columns = [
   {name: 'Disponivel em', options: {filter: false}},
   {name: 'Expira em', options: {filter: false}},
   {name: 'Tipo', options: {sort: false}},
+  {name: 'Especial?', options: {sort: false}},
 ];
 
 /**
@@ -51,6 +52,7 @@ function missionToData(mision) {
     dayJS(mision.availableAt).format('DD/MM/YYYY HH[h] mm[m]'),
     dayJS(mision.expirateAt).format('DD/MM/YYYY HH[h] mm[m]'),
     mision.type,
+    mision.isSpecial ? 'Sim': 'Não',
   ];
 }
 

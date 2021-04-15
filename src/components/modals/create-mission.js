@@ -7,6 +7,8 @@ import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
 import TextField from '@material-ui/core/TextField';
 import {KeyboardDateTimePicker} from '@material-ui/pickers';
+import Switch from '@material-ui/core/Switch';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
 
 import API from '../../api';
 import {defaultCoordinates} from '../../constants/coordinates';
@@ -40,6 +42,7 @@ export default function CreateMissionModal({onRequestClose = () => {}, onSubmit 
   const [missionType, setMissionType] = React.useState('');
   const [startDate, setStartDate] = React.useState(null);
   const [endDate, setEndDate] = React.useState(null);
+  const [isSpecial, setIsSpecial] = React.useState(false);
 
   /**
    * submit
@@ -68,7 +71,8 @@ export default function CreateMissionModal({onRequestClose = () => {}, onSubmit 
     const mission = {
       title,
       description,
-      locationReference: locationReference,
+      isSpecial,
+      locationReference,
       numberOfPacks: packs,
       availableAt: startDate.valueOf(),
       expirateAt: endDate.valueOf(),
@@ -152,6 +156,17 @@ export default function CreateMissionModal({onRequestClose = () => {}, onSubmit 
               label='Descrição'
               inputRef={descriptionRef}
               style={style.input}
+            />
+            <FormControlLabel
+              control={
+                <Switch
+                  checked={isSpecial}
+                  onChange={() => setIsSpecial(!isSpecial)}
+                  label='Especial?'
+                  color="primary"
+                />
+              }
+              label="Especial?"
             />
             <TextField
               fullWidth
