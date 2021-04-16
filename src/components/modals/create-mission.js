@@ -36,6 +36,7 @@ export default function CreateMissionModal({onRequestClose = () => {}, onSubmit 
   const descriptionRef = React.useRef();
   const locationReferenceRef = React.useRef();
   const packetsRef = React.useRef();
+  const minimumOfUsersToCompleteRef = React.useRef();
   const keyRef = React.useRef();
 
   const [isCreatingMission, setIsCreatingMission] = React.useState(false);
@@ -58,6 +59,7 @@ export default function CreateMissionModal({onRequestClose = () => {}, onSubmit 
     const description = descriptionRef.current.value;
     const locationReference = locationReferenceRef.current.value;
     const packs = packetsRef.current.value;
+    const minimumOfUsersToComplete = minimumOfUsersToCompleteRef.current.value;
 
     if (!title) return toast.error('Você deve fornecer um titulo');
     if (!description) return toast.error('Você deve fornecer uma descrição');
@@ -87,6 +89,13 @@ export default function CreateMissionModal({onRequestClose = () => {}, onSubmit 
       const {lat, lng} = markerRef.current.getLatLng();
       mission.lat = lat;
       mission.lng = lng;
+    } else if (missionType === 'group') {
+      if (!minimumOfUsersToComplete) return toast.error('Você deve fornecer uma quantidade mínima de pessoas para completar');
+      if (minimumOfUsersToComplete <= 0) return toast.error('Você deve fornecer uma quantidade positiva de pessoas para completar');
+      mission.minimumOfUsersToComplete = minimumOfUsersToComplete;
+      const {lat, lng} = markerRef.current.getLatLng();
+      mission.lat = lat;
+      mission.lng = lng;
     }
 
     setIsCreatingMission(true);
@@ -102,12 +111,27 @@ export default function CreateMissionModal({onRequestClose = () => {}, onSubmit 
   }
 
   /**
+   * renderKey
+   *
+   * @return {object}
+   */
+  function renderKey() {
+    if (missionType !== 'key') return null;
+    return <TextField
+      fullWidth
+      label='Chave'
+      inputRef={keyRef}
+      style={style.input}
+    />;
+  }
+
+  /**
    * renderMap
    *
    * @return {object}
    */
   function renderMap() {
-    if (missionType !== 'location') return null;
+    if (missionType !== 'location' && missionType !== 'group') return null;
     return (
       <MapContainer
         center={[defaultCoordinates.lat, defaultCoordinates.lng]}
@@ -125,17 +149,18 @@ export default function CreateMissionModal({onRequestClose = () => {}, onSubmit 
   }
 
   /**
-   * renderKey
+   * renderMinimumOfUsersToComplete
    *
    * @return {object}
    */
-  function renderKey() {
-    if (missionType !== 'key') return null;
+  function renderMinimumOfUsersToComplete() {
+    if (missionType !== 'group') return null;
     return <TextField
       fullWidth
-      label='Chave'
-      inputRef={keyRef}
+      label='Número mínimo de pessoas par completar'
+      inputRef={minimumOfUsersToCompleteRef}
       style={style.input}
+      type='number'
     />;
   }
 
@@ -211,7 +236,9 @@ export default function CreateMissionModal({onRequestClose = () => {}, onSubmit 
             >
               <MenuItem value='location'>Localização</MenuItem>
               <MenuItem value='key'>Chave</MenuItem>
+              <MenuItem value='group'>Grupo</MenuItem>
             </Select>
+            {renderMinimumOfUsersToComplete()}
             {renderMap()}
             {renderKey()}
             <Button

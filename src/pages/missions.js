@@ -122,9 +122,12 @@ function MissionsPage() {
       <>
         <Row name='_id' value={mission._id} />
         <Row name='descrição' value={mission.description} />
-        <Row name='latitude' value={mission.lat} />
-        <Row name='longitude' value={mission.lng} />
-        { mission.type === 'location' && <Row name='mapa' value={<MissionMap lat={mission.lat} lng={mission.lng} />} /> }
+        { (mission.type === 'location' || mission.type === 'group') && <>
+          <Row name='latitude' value={mission.lat} />
+          <Row name='longitude' value={mission.lng} />
+          <Row name='mapa' value={<MissionMap lat={mission.lat} lng={mission.lng} />} />
+        </>}
+        { mission.type === 'group' && <Row name='Número mínimo de pessoas par completar' value={mission.minimumOfUsersToComplete} /> }
         { mission.type === 'qrcode' && <>
           <Row name='QRCode' value={renderQRCode(mission.key)} />
           <Row name='QRCode key' value={mission.key} style={{width: 250, wordBreak: 'break-all'}}/>
