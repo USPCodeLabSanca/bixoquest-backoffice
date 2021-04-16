@@ -63,7 +63,6 @@ export default function CreateMissionModal({
     const description = descriptionRef.current.value;
     const locationReference = locationReferenceRef.current.value;
     const packs = packetsRef.current.value;
-    const minimumOfUsersToComplete = minimumOfUsersToCompleteRef.current.value;
 
     if (!title) return toast.error('Você deve fornecer um titulo');
     if (!description) return toast.error('Você deve fornecer uma descrição');
@@ -96,6 +95,7 @@ export default function CreateMissionModal({
       mission.lat = lat;
       mission.lng = lng;
     } else if (missionType === 'group') {
+      const minimumOfUsersToComplete = minimumOfUsersToCompleteRef.current.value;
       if (!minimumOfUsersToComplete) return toast.error('Você deve fornecer uma quantidade mínima de pessoas para completar');
       if (minimumOfUsersToComplete <= 0) return toast.error('Você deve fornecer uma quantidade positiva de pessoas para completar');
       mission.minimumOfUsersToComplete = minimumOfUsersToComplete;

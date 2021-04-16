@@ -59,7 +59,6 @@ export default function CreateMissionModal({onRequestClose = () => {}, onSubmit 
     const description = descriptionRef.current.value;
     const locationReference = locationReferenceRef.current.value;
     const packs = packetsRef.current.value;
-    const minimumOfUsersToComplete = minimumOfUsersToCompleteRef.current.value;
 
     if (!title) return toast.error('Você deve fornecer um titulo');
     if (!description) return toast.error('Você deve fornecer uma descrição');
@@ -90,6 +89,7 @@ export default function CreateMissionModal({onRequestClose = () => {}, onSubmit 
       mission.lat = lat;
       mission.lng = lng;
     } else if (missionType === 'group') {
+      const minimumOfUsersToComplete = minimumOfUsersToCompleteRef.current.value;
       if (!minimumOfUsersToComplete) return toast.error('Você deve fornecer uma quantidade mínima de pessoas para completar');
       if (minimumOfUsersToComplete <= 0) return toast.error('Você deve fornecer uma quantidade positiva de pessoas para completar');
       mission.minimumOfUsersToComplete = minimumOfUsersToComplete;
@@ -157,6 +157,7 @@ export default function CreateMissionModal({onRequestClose = () => {}, onSubmit 
     if (missionType !== 'group') return null;
     return <TextField
       fullWidth
+      defaultValue={2}
       label='Número mínimo de pessoas par completar'
       inputRef={minimumOfUsersToCompleteRef}
       style={style.input}
@@ -201,6 +202,7 @@ export default function CreateMissionModal({onRequestClose = () => {}, onSubmit 
             />
             <TextField
               fullWidth
+              defaultValue={1}
               label='Número de pacotes de recompensa'
               inputRef={packetsRef}
               style={style.input}
